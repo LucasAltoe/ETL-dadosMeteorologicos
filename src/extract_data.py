@@ -2,16 +2,21 @@ import requests
 import json
 from pathlib import Path
 import logging
+from dotenv import load_dotenv
+import os
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-api_key = '7887ddab93ea08e8e5026a996fb76bc1'
+env_path = Path('/opt/airflow/config/.env')
+load_dotenv(dotenv_path=env_path, override=True)
+
+API_KEY = os.getenv('OPEN_WEATHER_API_KEY')
 url = 'https://api.openweathermap.org/data/2.5/weather'
 
 params = {
     'q': 'Cachoeiro de Itapemirim,BR',
     'units': 'metric',
-    'appid': api_key
+    'appid': API_KEY
 }
 
 #O parâmetro url é do tipo string e essa função retorna uma lista, por isso o -> list
